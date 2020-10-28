@@ -1,0 +1,10 @@
+extends layout
+block content
+  h1 Full Stack 0620
+  img(src=image)
+  H2 Welcome to #{title} course, group server #{server}
+  a(href="https://rtfs0620.xyz/images/fsp1.pdf" download) To Download Book Press Here
+  H2 Our group:
+  each n in students
+    p #{n.first_name} #{n.last_name} #{n.linux}
+

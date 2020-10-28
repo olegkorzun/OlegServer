@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>login Student</title>
+</head>
+
+<body>
+    <h2>login Student</h2>
+    <form id="frm">
+        <label for="username">Login:</label><br>
+        <input type="text" name="username" id="username" /><br>
+        <label for="password">Password:</label><br>
+        <input type="password" name="password" id="password" /><br>
+        <input type="submit" value="Login">
+    </form>
+    <h2>CPU</h2>
+    <form id="cpu">
+        <label for="cpu">CPU:</label><br>
+        <input type="text" name="cpu" value="5678-8765-4028-1065-9792-8764-2386-4657" /><br>
+        <label for="cpu">Version:</label><br>
+        <input type="text" name="ver" value="1010" /><br>
+        <input type="submit" value="Send">
+    </form>
+
+    <script>
+        let token;
+        let studentID;
+        // LOGIN
+        frm.onsubmit = async(e) => {
+            e.preventDefault();
+            let data1 = {
+                username: frm.elements["username"].value,
+                password: frm.elements["password"].value,
+            }
+            try {
+                // first request - login 
+                let serverData1;
+                let response1 = await fetch('https://rt-students.xyz:61230/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(data1)
+                });
+                serverData1 = await response1.json();
+                console.log("Login", serverData1);
+                token = serverData1.token;
+                studentID = serverData1.user.studentID;
+            } catch (er) {
+                console.log(er);
+            }
+        }
+
+        // Permit request
+        cpu.onsubmit = async(e) => {
+            e.preventDefault();
+            let data2 = {
+                    studentID: studentID,
+                    cpu: cpu.elements["cpu"].value,
+                    ver: cpu.elements["ver"].value,
+                }
+                /*IMPORTANT - Version is number 4 digits ONLY 1010, 1011 ...  */
+            try {
+                //Sending CPU + version
+                let serverData2;
+                let response2 = await fetch('https://rt-students.xyz:61230/get_permission', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        'Authorization': 'Bearer ' + token,
+                    },
+                    body: JSON.stringify(data2)
+                });
+                serverData2 = await response2.json();
+                console.log("Permission", serverData2);
+                /* Possible Answers
+                from 200 to 299 - Success
+                status: 200, status_text: "good boy"
+                status: 210, status_text: "version updated"
+
+                from 300 - 399 - Warning but getting access
+                status: 300, status_text: "new user"
+                status: 310, status_text: "install new version"
+
+                from 400 - 499 Not accepted
+                status: 400, status_text: "access denide"
+                */
+                if (serverData2.status >= 400 && serverData2.status < 500) {
+                    console.log("Unfortunately video viewing is not possible due to : ", serverData2.status_text)
+                } else {
+                    if (serverData2.status >= 300 && serverData2.status < 400) {
+                        console.log("Warning! viewing is provided on condition : ", serverData2.status_text)
+                    }
+                    //third request
+                    let serverData3;
+                    let response3 = await fetch('https://rt-students.xyz:61230/courses', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                            'Authorization': 'Bearer ' + token,
+                        },
+                        body: JSON.stringify({
+                            studentID: studentID
+                        })
+                    });
+                    serverData3 = await response3.json();
+                    console.log("courses", serverData3);
+
+                    //forth request
+                    let serverData4;
+                    let response4 = await fetch('https://rt-students.xyz:61230/playlist', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                            'Authorization': 'Bearer ' + token,
+                        },
+                        body: JSON.stringify({
+                            studentID: studentID,
+                            cycle: '621'
+                        })
+                    });
+                    serverData4 = await response4.json();
+                    console.log("playlist", serverData4);
+
+                    //fifth request
+                    let serverData5;
+                    let response5 = await fetch('https://rt-students.xyz:61230/videoplay', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                            'Authorization': 'Bearer ' + token,
+                        },
+                        body: JSON.stringify({
+                            studentID: studentID,
+                            video_id: '69'
+                        })
+                    });
+                    serverData5 = await response5.json();
+                    console.log("Play list", serverData5);
+                }
+            } catch (er) {
+                console.log(er);
+            }
+        }
+    </script>
+</body>
+
+</html>

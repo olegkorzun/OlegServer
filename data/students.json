@@ -1,0 +1,86 @@
+[
+{
+    "first_name": "ליעם",
+    "last_name": "זיתי",
+    "student_id":"205541246",
+    "phone":"0528408649",
+    "email":"liamfitstandarts@gmail.com",
+    "linux":"liam",
+    "is_active": true
+},
+{
+    "first_name": "ארז",
+    "last_name": "בריצי",
+    "student_id":"036906253",
+    "phone":"0547395449",
+    "email":"erez350@gmail.com",
+    "linux":"erez",
+    "is_active": true
+},
+{
+    "first_name": "זאהר",
+    "last_name": "אבו פאני",
+    "student_id":"206716524",
+    "phone":"0509253960",
+    "email":"zaherabofany@gmail.com",
+    "linux":"zaher",
+    "is_active": true
+},
+{
+    "first_name": "חיים",
+    "last_name": "ביידר",
+    "student_id":"205721541",
+    "phone":"0507193030",
+    "email":"enorbii@gmail.com",
+    "linux":"haim",
+    "is_active": true
+},
+{
+    "first_name": "חסן",
+    "last_name": "אוואק",
+    "student_id":"000427704",
+    "phone":"0543501813",
+    "email":"hawad0867@gmail.com",
+    "linux":"hassan",
+    "is_active": true
+},
+{
+    "first_name": "ירין",
+    "last_name": "שער",
+    "student_id":"305302283",
+    "phone":"0502936393",
+    "email":"yarinshaer@gmail.com",
+    "linux":"yarin",
+    "is_active": true
+},
+{
+    "first_name": "עומר",
+    "last_name": "אסלי",
+    "student_id":"206930448",
+    "phone":"0508572400",
+    "email":"asali.omar.96@gmail.com",
+    "linux":"omar",
+    "is_active": true
+},
+{
+    "first_name": "קובי",
+    "last_name": "רון",
+    "student_id":"062854245",
+    "phone":"0546376663",
+    "email":"kobiron5@gmail.com",
+    "linux":"kobi",
+    "is_active": true
+},
+{
+    "first_name": "דור",
+    "last_name": "בן דוד",
+    "student_id":"302442538",
+    "phone":"0505855549",
+    "email":"dorb55@yahoo.com",
+    "linux":"dor",
+    "is_active": true
+}
+]
+	
+    
+    			
